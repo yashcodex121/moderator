@@ -1,0 +1,21 @@
+# Bot session file
+*.session
+*.session-journal
+
+# Config with real credentials — never commit this
+config.py
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+venv/
+.env/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
