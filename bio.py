@@ -1016,8 +1016,14 @@ async def on_start():
 
 if __name__ == "__main__":
     import sys
-    if sys.platform == "win32":
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    app.run(on_start())
+    from pyrogram import idle as pyrogram_idle
+
+    async def main():
+        if sys.platform == "win32":
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        await app.start()
+        await on_start()
+        await pyrogram_idle()
+        await app.stop()
+
+    asyncio.run(main())
