@@ -5,9 +5,8 @@ Channel : https://t.me/itsSmartDev
 """
 
 import asyncio
-import sys
 
-from pyrogram import Client, filters, errors, idle
+from pyrogram import Client, filters, errors
 from pyrogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
@@ -849,22 +848,12 @@ async def _apply_penalty(client, chat_id, user_id, penalty,
 #  STARTUP
 # ═════════════════════════════════════════════════════════════════════════════
 
-async def main():
-    """Start bot, log startup, then idle until Ctrl-C."""
-    if sys.platform == "win32":
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
-    await app.start()
-
+async def _post_start():
     bot = await app.get_me()
     await log(app, f"@{bot.username} is now online.",
               level="START",
               extra={"id": bot.id, "log_chat": str(LOG_CHAT_ID)})
 
-    await idle()       # blocks here — keeps all handlers alive
-
-    await app.stop()
-
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    app.run(_post_start())
